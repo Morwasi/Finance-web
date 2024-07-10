@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bills and Reminders</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bill-form, .bills, .alerts {
+            width: 80%;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <ul>
+                <li><a href="logout.html">Logout</a></li>
+                <li><a href="budget_man.html">Budget Management</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="bills_rem.html">Bills and Reminders</a></li>
+            </ul>
+        </nav>
+        <h1>Personal Finance Management</h1>
+    </header>
+    <div class="container">
+        <h1>Bills and Reminders</h1>
+        
+        <div class="bill-form">
+            <h2>Add a Bill</h2>
+            <form id="billForm">
+                <label for="billName">Bill Name:</label>
+                <input type="text" id="billName" name="billName" required>
+        
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" name="dueDate" required>
+        
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" name="amount" required>
+        
+                <button type="submit">Add Bill</button>
+            </form>
+        </div>
+        
+        <div class="bills">
+            <h2>Upcoming Bills</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Amount (R)</th>
+                        <th>Notification</th>
+                    </tr>
+                </thead>
+                <tbody id="billList"></tbody>
+            </table>
+        </div>
+        
+        <div class="alerts">
+            <h2>Alerts and Reminders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Amount (R)</th>
+                    </tr>
+                </thead>
+                <tbody id="alertList"></tbody>
+            </table>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>&copy; Student Personal Finance Management. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('billForm').addEventListener('submit', addBill);
+
+        function addBill(event) {
+            event.preventDefault();
+
+            const billName = document.getElementById('billName').value;
+            const dueDate = document.getElementById('dueDate').value;
+            const amount = document.getElementById('amount').value;
+
+            const billRow = document.createElement('tr');
+            billRow.innerHTML = `
+                <td>${dueDate}</td>
+                <td>${billName}</td>
+                <td>R${parseFloat(amount).toFixed(2)}</td>
+                <td><button onclick="addReminder(this)">Remind Me</button></td>
+            `;
+
+            document.getElementById('billList').appendChild(billRow);
+            sortTable('billList');
+        }
+
+        function addReminder(button) {
+            const row = button.parentElement.parentElement.cloneNode(true);
+            row.removeChild(row.lastElementChild); // Remove the "Remind Me" button
+
+            document.getElementById('alertList').appendChild(row);
+            sortTable('alertList');
+        }
+
+        function sortTable(tableId) {
+            const table = document.getElementById(tableId);
+            const rows = Array.from(table.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                const dateA = new Date(a.cells[0].innerText);
+                const dateB = new Date(b.cells[0].innerText);
+                return dateA - dateB;
+            });
+
+            rows.forEach(row => table.appendChild(row));
+        }
+    </script>
+</body>
+
+</html>

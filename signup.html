@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <label for="newUsername">Username:</label><br>
+        <input type="text" id="newUsername" name="newUsername"><br>
+        <label for="newEmail">Email:</label><br>
+        <input type="email" id="newEmail" name="newEmail"><br>
+        <label for="newPassword">Password:</label><br>
+        <input type="password" id="newPassword" name="newPassword"><br>
+        <input type="submit" value="Sign Up">
+    </form>
+    <footer class="footer">
+        <p>&copy; Student Personal Finance Management. All rights reserved.</p>
+    </footer>
+
+    <script type="module">
+        // Firebase configuration and initialization
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDoq7vr4JIuL_ZnOaetrz1YzndBPDRs5uQ",
+            authDomain: "student-finance-manegement.firebaseapp.com",
+            projectId: "student-finance-manegement",
+            storageBucket: "student-finance-manegement.appspot.com",
+            messagingSenderId: "200253750044",
+            appId: "1:200253750044:web:b890aca5f5a1acdd3558d9",
+            measurementId: "G-3Y6G54R1XF"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // Handle Sign Up
+        const signupForm = document.getElementById('signupForm');
+        signupForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = signupForm['newEmail'].value;
+            const password = signupForm['newPassword'].value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    sendEmailVerification(user)
+                        .then(() => {
+                            alert('Verification email sent! Please verify your email to login.');
+                            window.location.href = 'login.html';
+                        }).catch((error) => {
+                            console.error('Failed to send verification email:', error);
+                        });
+                })
+                .catch((error) => {
+                    console.error('Registration failed:', error);
+                });
+        });
+    </script>
+</body>
+</html>

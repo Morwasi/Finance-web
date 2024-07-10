@@ -1,0 +1,394 @@
+/* Basic reset and styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px; /* Ensuring there's space around the content */
+}
+.navbar {
+    background-color: #343a40;
+    padding: 10px 0;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navbar ul li {
+    margin: 0 15px;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: rgb(247, 123, 7);
+    padding: 10px 20px;
+  }
+  
+  .navbar ul li a:hover {
+    background-color: #495057;
+    border-radius: 3px;
+  }
+
+/* Header styling */
+.header {
+    background-color: #ff9933;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Dashboard container */
+.dashboard {
+    padding: 20px;
+}
+
+/* Financial Overview styling */
+.financial-overview,
+.financial-calendar {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+h1 {
+    color: #ff9933; /* Consistent header color */
+    text-align: center;
+}
+
+h2 {
+    color: #ff9933; /* Consistent section title color */
+}
+
+.overview-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1 1 200px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    background-color: #ffedcc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    color: #ff7f00;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Financial Calendar styling */
+.financial-calendar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.financial-calendar li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.financial-calendar li span {
+    flex: 1;
+}
+
+.financial-calendar li span:nth-child(2) {
+    text-align: center;
+}
+
+.financial-calendar li span:nth-child(3) {
+    text-align: right;
+}
+
+/* Form styling if necessary in other parts of the page */
+form {
+    background-color: #ffe6b3; /* Light yellow for forms */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ffa31a; /* Orange border */
+    border-radius: 5px;
+}
+
+label {
+    color: #ff9933; /* Orange labels */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ffcc00; /* Yellow border */
+    border-radius: 3px;
+    background-color: #fff2e6; /* Very light orange */
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff9933; /* Orange buttons */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff7f00; /* Darker orange on hover */
+}
+
+form {
+    background-color: #ffe6b3; /* Light yellow for forms */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ffa31a; /* Orange border */
+    border-radius: 5px;
+}
+
+label {
+    color: #ff9933; /* Orange labels */
+}
+h2 {
+    color: #ffcc00; /* Yellow */
+    border-bottom: 2px solid #ffa31a; /* Orange border */
+    padding-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ffcc00; /* Yellow border */
+    border-radius: 3px;
+    background-color: #fff2e6; /* Very light orange */
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff9933; /* Orange buttons */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff7f00; /* Darker orange on hover */
+}
+
+/* Form styling */
+form {
+    background-color: #ffe6b3; /* Light yellow for forms */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ffa31a; /* Orange border */
+    border-radius: 5px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label {
+    color: #ff9933; /* Orange labels */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ffcc00; /* Yellow border */
+    border-radius: 3px;
+    background-color: #fff2e6; /* Very light orange */
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff9933; /* Orange buttons */
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff7f00; /* Darker orange on hover */
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #ff9933;
+    color: white;
+}
+
+td {
+    background-color: #ffedcc;
+    color: #333;
+}
+
+tbody tr:nth-child(even) td {
+    background-color: #ffe6b3; /* Light yellow for alternate rows */
+}
+input[type="text"], input[type="date"], input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 10px 0;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #218838;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    padding: 15px;
+    background-color: #f8f9fa;
+    margin: 10px 0;
+    border: 1px solid #dee2e6;
+  }
+  .logout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.logout-box {
+    background-color: #fff;
+    border: 2px solid #ff8c00;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.logout-box h2 {
+    color: #ff8c00;
+    margin-bottom: 20px;
+}
+
+#logout-button {
+    background-color: #ff8c00;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+#logout-button:hover {
+    background-color: #e07b00;
+}
+
+.cancel-link {
+    display: block;
+    color: #ff8c00;
+    text-decoration: none;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}
+.dropdown {
+    margin-bottom: 20px;
+}
+
+.dropdown label, .event-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.dropdown select, .event-form input, .event-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.calendar {
+    margin-bottom: 30px;
+}
+
+.events-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.events-list li {
+    background-color: #f1f1f1;
+    margin: 10px 0;
+    padding: 10px;
+    border-left: 5px solid #ff8c00;
+}
+
+.events-list button {
+    background-color: #e07b00;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    float: right;
+}
+
+.events-list button:hover {
+    background-color: #c96500;
+}
+.footer {
+    background-color: #ff8c00;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+  }

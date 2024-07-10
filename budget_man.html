@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Management</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .forms-container {
+            display: flex;
+        }
+
+        .form-container {
+            flex: 1;
+        }
+
+        .leaderboard-container {
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .leaderboard-container h3 {
+            text-align: center;
+        }
+
+        .leaderboard-container table {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <ul>
+                <li><a href="logout.html">Logout</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="bills_rem.html">Bills and Reminders</a></li>
+                <li><a href="bills_rem.html">Bills and Reminders</a></li>
+            </ul>
+        </nav>
+        <h1>Personal Finance Management</h1>
+    </header>
+    <h1>Budget Management</h1>
+
+    <!-- Set Budget Form and Leaderboard -->
+    <div class="forms-container">
+        <div class="form-container">
+            <h2>Set Monthly or Custom Budgets</h2>
+            <form id="budget-form" onsubmit="setBudget(event)">
+                <label for="budgetCategory">Category:</label>
+                <input type="text" id="budgetCategory" name="budgetCategory" required><br>
+
+                <label for="budgetAmount">Amount (R):</label>
+                <input type="number" id="budgetAmount" name="budgetAmount" required><br>
+
+                <label for="budgetPeriod">Period:</label>
+                <select id="budgetPeriod" name="budgetPeriod" required>
+                    <option value="monthly">Monthly</option>
+                    <option value="custom">Custom</option>
+                </select><br>
+
+                <input type="submit" value="Set Budget">
+            </form>
+        </div>
+
+        <div class="leaderboard-container">
+            <h3>Budget Leaderboard</h3>
+            <table id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount (R)</th>
+                        <th>Period</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Leaderboard entries will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Track Budget vs Actual Spending -->
+    <h2>Track Budget vs. Actual Spending</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Budgeted Amount (R)</th>
+                <th>Actual Spending (R)</th>
+                <th>Difference (R)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tracking-table">
+            <tr>
+                <td><input type="text" class="category" placeholder="Category"></td>
+                <td><input type="number" class="budgeted-amount" placeholder="R0" onchange="updateDifferences()"></td>
+                <td><input type="number" class="actual-spending" placeholder="R0" onchange="updateDifferences()"></td>
+                <td class="difference">R0</td>
+                <td><button onclick="addRow()">Add</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total Difference</td>
+                <td colspan="2" id="total-difference">R0</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <footer class="footer">
+        <p>&copy; Student Personal Finance Management. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function addRow() {
+            const table = document.getElementById('tracking-table');
+            const newRow = table.insertRow(table.rows.length - 1);
+
+            const categoryCell = newRow.insertCell(0);
+            const budgetedCell = newRow.insertCell(1);
+            const actualCell = newRow.insertCell(2);
+            const differenceCell = newRow.insertCell(3);
+            const actionCell = newRow.insertCell(4);
+
+            const categoryInput = document.createElement('input');
+            categoryInput.type = 'text';
+            categoryInput.className = 'category';
+            categoryInput.placeholder = 'Category';
+            categoryCell.appendChild(categoryInput);
+
+            const budgetedInput = document.createElement('input');
+            budgetedInput.type = 'number';
+            budgetedInput.className = 'budgeted-amount';
+            budgetedInput.placeholder = 'R0';
+            budgetedInput.onchange = updateDifferences;
+            budgetedCell.appendChild(budgetedInput);
+
+            const actualInput = document.createElement('input');
+            actualInput.type = 'number';
+            actualInput.className = 'actual-spending';
+            actualInput.placeholder = 'R0';
+            actualInput.onchange = updateDifferences;
+            actualCell.appendChild(actualInput);
+
+            const differenceText = document.createElement('span');
+            differenceText.className = 'difference';
+            differenceText.innerText = 'R0';
+            differenceCell.appendChild(differenceText);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteButton.onclick = () => {
+                newRow.remove();
+                updateDifferences();
+            };
+            actionCell.appendChild(deleteButton);
+        }
+
+        function updateDifferences() {
+            let totalDifference = 0;
+            const rows = document.querySelectorAll('#tracking-table tr');
+            rows.forEach(row => {
+                const budgeted = parseFloat(row.querySelector('.budgeted-amount')?.value) || 0;
+                const actual = parseFloat(row.querySelector('.actual-spending')?.value) || 0;
+                const difference = budgeted - actual;
+                row.querySelector('.difference').innerText = `${difference > 0 ? '+' : ''}R${difference.toFixed(2)}`;
+                totalDifference += difference;
+            });
+            document.getElementById('total-difference').innerText = `${totalDifference > 0 ? '+' : ''}R${totalDifference.toFixed(2)}`;
+        }
+
+        function setBudget(event) {
+            event.preventDefault();
+            const category = document.getElementById('budgetCategory').value;
+            const amount = parseFloat(document.getElementById('budgetAmount').value);
+            const period = document.getElementById('budgetPeriod').value;
+
+            const table = document.getElementById('leaderboard-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const categoryCell = newRow.insertCell(0);
+            const amountCell = newRow.insertCell(1);
+            const periodCell = newRow.insertCell(2);
+
+            categoryCell.innerText = category;
+            amountCell.innerText = `R${amount.toFixed(2)}`;
+            periodCell.innerText = period.charAt(0).toUpperCase() + period.slice(1); // Capitalize the first letter
+
+            const rowsArray = Array.from(table.rows);
+
+            rowsArray.sort((a, b) => {
+                const amountA = parseFloat(a.cells[1].innerText.replace('R', ''));
+                const amountB = parseFloat(b.cells[1].innerText.replace('R', ''));
+                return amountB - amountA;
+            });
+
+            rowsArray.forEach(row => table.appendChild(row)); // Append sorted rows
+
+            document.getElementById('budget-form').reset(); // Reset the form
+        }
+    </script>
+</body>
+
+</html>

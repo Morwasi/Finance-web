@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Diary Reminder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <ul>
+                <li><a href="logout.html">Logout</a></li>
+                <li><a href="budget_man.html">Budget Management</a></li>
+                <li><a href="bills_rem.html">Bills and Reminders</a></li>
+                <li><a href="index.html">Bills and Reminders</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="dropdown">
+            <label for="eventType">Select Event Type:</label>
+            <select id="eventType">
+                <option value="meeting">Meeting</option>
+                <option value="task">Task</option>
+                <option value="appointment">Appointment</option>
+            </select>
+        </div>
+
+        <div class="event-form">
+            <label for="eventTitle">Event Title:</label>
+            <input type="text" id="eventTitle" placeholder="Enter event title">
+
+            <label for="eventDate">Event Date:</label>
+            <input type="date" id="eventDate">
+
+            <button type="button" onclick="addEvent()">Add Event</button>
+        </div>
+
+        <div class="calendar">
+            <h2>Embedded Calendar</h2>
+            <input type="date" id="calendar" onchange="syncDateWithEvent()">
+        </div>
+
+        <h2>Today's Events</h2>
+        <ul class="events-list" id="eventsList">
+            <!-- Events will be listed here -->
+        </ul>
+    </div>
+
+    <script>
+        function addEvent() {
+            const eventType = document.getElementById('eventType').value;
+            const eventTitle = document.getElementById('eventTitle').value;
+            const eventDate = document.getElementById('eventDate').value;
+
+            if (!eventTitle || !eventDate) {
+                alert('Please fill in both the event title and date.');
+                return;
+            }
+
+            const eventList = document.getElementById('eventsList');
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+                <span>${eventDate} - ${eventType}: ${eventTitle}</span>
+                <button onclick="removeEvent(this)">Cancel</button>
+            `;
+            eventList.appendChild(listItem);
+
+            // Clear the form inputs
+            document.getElementById('eventTitle').value = '';
+            document.getElementById('eventDate').value = '';
+        }
+
+        function removeEvent(button) {
+            const listItem = button.parentElement;
+            listItem.remove();
+        }
+
+        function syncDateWithEvent() {
+            const calendarDate = document.getElementById('calendar').value;
+            document.getElementById('eventDate').value = calendarDate;
+        }
+    </script>
+      <footer class="footer">
+        <p>&copy; Student Personal Finance Management. All rights reserved.</p>
+      </footer>
+</body>
+</html>

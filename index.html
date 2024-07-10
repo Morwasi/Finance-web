@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <ul>
+                <li><a href="logout.html">Logout</a></li>
+                <li><a href="budget_man.html">Budget Management</a></li>
+                <li><a href="bills_rem.html">Bills and Reminders</a></li>
+                <li><a href="bills_rem.html">Bills and Reminders</a></li>
+            </ul>
+        </nav>
+        <h1>Personal Finance Management</h1>
+    </header>
+    <main class="dashboard">
+        <section class="financial-overview">
+            <h2>Financial Overview</h2>
+            <div class="overview-cards">
+                <div class="card">
+                    <h3>Income</h3>
+                    <input type="number" id="income" placeholder="R0" onchange="updateNetWorth()">
+                </div>
+                <div class="card">
+                    <h3>Expenses</h3>
+                    <input type="number" id="expenses" placeholder="R0" onchange="updateNetWorth()">
+                </div>
+                <div class="card">
+                    <h3>Savings</h3>
+                    <input type="number" id="savings" placeholder="R0" onchange="updateNetWorth()">
+                </div>
+                <div class="card">
+                    <h3>Net Worth</h3>
+                    <p id="netWorth">R0</p>
+                </div>
+            </div>
+        </section>
+        <section class="financial-calendar">
+            <h2>Upcoming Bills & Events</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Bill Name</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="bills-table">
+                    <tr>
+                        <td><input type="date" class="bill-date"></td>
+                        <td><input type="text" class="bill-name" placeholder="Bill Name"></td>
+                        <td><input type="number" class="bill-amount" placeholder="R0"></td>
+                        <td><button onclick="addRow()">Add</button></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Total</td>
+                        <td colspan="2" id="total-amount">R0</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; Student Personal Finance Management. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function updateNetWorth() {
+            const income = parseFloat(document.getElementById('income').value) || 0;
+            const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+            const savings = parseFloat(document.getElementById('savings').value) || 0;
+            const netWorth = income - expenses + savings;
+            document.getElementById('netWorth').innerText = `R${netWorth.toFixed(2)}`;
+        }
+
+        function addRow() {
+            const table = document.getElementById('bills-table');
+            const newRow = table.insertRow(table.rows.length - 1);
+
+            const dateCell = newRow.insertCell(0);
+            const nameCell = newRow.insertCell(1);
+            const amountCell = newRow.insertCell(2);
+            const actionCell = newRow.insertCell(3);
+
+            const dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.className = 'bill-date';
+            dateCell.appendChild(dateInput);
+
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.className = 'bill-name';
+            nameInput.placeholder = 'Bill Name';
+            nameCell.appendChild(nameInput);
+
+            const amountInput = document.createElement('input');
+            amountInput.type = 'number';
+            amountInput.className = 'bill-amount';
+            amountInput.placeholder = 'R0';
+            amountInput.onchange = updateTotalAmount;
+            amountCell.appendChild(amountInput);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteButton.onclick = () => {
+                newRow.remove();
+                updateTotalAmount();
+            };
+            actionCell.appendChild(deleteButton);
+        }
+
+        function updateTotalAmount() {
+            const amounts = document.querySelectorAll('.bill-amount');
+            let total = 0;
+            amounts.forEach(amount => {
+                total += parseFloat(amount.value) || 0;
+            });
+            document.getElementById('total-amount').innerText = `R${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+
+</html>
